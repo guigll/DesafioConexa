@@ -1,0 +1,49 @@
+services:
+  desafiohubconexa:
+    build:
+      context: C:\Users\guilh\source\repos\DesafioHubConexa
+      dockerfile: DesafioHubConexa/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: DesafioHubConexa
+      target: base
+    container_name: DesafioHubConexa
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: ''
+    image: desafiohubconexa:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/netcoreapp3.1/DesafioHubConexa.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - target: 80
+    - target: 443
+    tty: true
+    volumes:
+    - C:\Users\guilh\source\repos\DesafioHubConexa\DesafioHubConexa:/app:rw
+    - C:\Users\guilh\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\guilh\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\guilh\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Users\guilh\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\guilh\source\repos\DesafioHubConexa:/src:rw
+  sqldata:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Pass@word
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    ports:
+    - published: 7433
+      target: 1433
+    volumes:
+    - sqldata:/var/opt/mssql:rw
+version: '3.4'
+volumes:
+  sqldata:
+    external: false
