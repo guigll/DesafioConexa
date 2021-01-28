@@ -5,7 +5,7 @@
 * Executar o comando [ Update-Database ] no visual studio
 * Rode a API no visual studio
 * Acesse https://localhost:49165
-* Acesse https://hub.docker.com/r/gui159357/desafiohubconexa
+* Acesse imagem Docker https://hub.docker.com/r/gui159357/desafiohubconexa
 * Acessar api/documentation para visualizar a documentação do swagger
 
 
