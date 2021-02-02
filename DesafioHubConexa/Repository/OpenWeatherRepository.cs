@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace DesafioHubConexa.Repository
 {
-    public class OpenWeatherRepository
+    public class OpenWeatherRepository : IOpenWeatherRepository
     {
         public OpenWeatherRepository()
         {
             
         }
 
-        internal void SaveTemp(CityModel cityModel, Contexto _context)
+        public void SaveTemp(CityModel cityModel, Contexto _context)
         {
             _context.Update(cityModel);
             _context.SaveChanges();
         }
 
-        internal void SaveHistoricTemp(List<CityModel> list, Contexto _context)
+        public void SaveHistoricTemp(List<CityModel> list, Contexto _context)
         {
             foreach (var item in list)
             {

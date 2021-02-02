@@ -13,16 +13,17 @@ namespace DesafioHubConexa.Services
     {
         private readonly HttpClient _httpClient;
         private readonly string openweatherAppId;
-        private OpenWeatherRepository _repository = new OpenWeatherRepository();
+        private IOpenWeatherRepository _repository;
         private Contexto _context;
        
 
-        public OpenWeatherService(HttpClient httpClient, IConfiguration configuration, Contexto context)
+        public OpenWeatherService(HttpClient httpClient, IConfiguration configuration, Contexto context, IOpenWeatherRepository repository)
         {
             httpClient.BaseAddress = new System.Uri(configuration["OpenweatherApiHostName"]);
             _httpClient = httpClient;
             openweatherAppId = configuration["OpenweatherApiId"];
             _context = context;
+            _repository = repository;
         }
 
         public async Task<CityModel> BuscarTemperaturaPorCidade(string cidade)

@@ -28,25 +28,58 @@ namespace ApiTests
         public void Get_WhenCalledByValidCityName_ReturnsOkResult()
         {
             // Act
-            var okResult = _controller.BuscarTemperaturaPorCidade(NOME);
+            var result = _controller.BuscarTemperaturaPorCidade(NOME);
             // Assert
-            Assert.NotNull(okResult);
+            Assert.IsType<OkObjectResult>(result.Result);
         }
+
         [Fact]
         public void Get_WhenCalledByLatLong_ReturnsOkResult()
         {
             // Act
-            var okResult = _controller.BuscarTemperaturaPorGeolocalizacao(LAT,LONG);
+            var result = _controller.BuscarTemperaturaPorGeolocalizacao(LAT,LONG);
             // Assert
-            Assert.NotNull(okResult);
+            Assert.IsType<OkObjectResult>(result.Result);
         }
+
         [Fact]
         public void GetHistoric_WhenCalledByLatLong_ReturnsOkResult()
         {
             // Act
-            var okResult = _controller.BuscarHistoricoPorGeolocalizacao(LAT, LONG);            
-            // Assert
+            var result = _controller.BuscarHistoricoPorGeolocalizacao(LAT, LONG);
             
+            // Assert
+            Assert.IsType<OkObjectResult>(result.Result);
+
+        }
+
+        [Fact]
+        public void Get_WhenCalledByValidCityName_ReturnsBadRequestObjectResult()
+        {
+            // Act
+            var result = _controller.BuscarTemperaturaPorCidade("Washington");
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result.Result);
+        }
+
+        [Fact]
+        public void Get_WhenCalledByLatLong_ReturnsBadRequestObjectResult()
+        {
+            // Act
+            var result = _controller.BuscarTemperaturaPorGeolocalizacao(1, 2);
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result.Result);
+        }
+
+        [Fact]
+        public void GetHistoric_WhenCalledByLatLong_ReturnsBadRequestObjectResult()
+        {
+            // Act
+            var result = _controller.BuscarHistoricoPorGeolocalizacao(1, 2);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result.Result);
+
         }
     }
 }

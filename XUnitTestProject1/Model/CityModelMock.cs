@@ -41,8 +41,8 @@ namespace ApiTests.Model
 
         public async Task<List<CityModel>> BuscarHistoricoPorGeolocalizacao(float latitude, float longitude)
         {
-            List<CityModel> list = await GetListAsync();
-            return (List<CityModel>)list.Where(a => a.Lat == latitude && a.Lon == longitude);
+            List<CityModel> list = await GetListAsync();           
+            return list.Where(a => a.Lat == latitude && a.Lon == longitude).ToList();
         }
 
         private async Task<List<CityModel>> GetListAsync()
